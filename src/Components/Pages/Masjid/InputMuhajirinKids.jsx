@@ -1,15 +1,48 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardBody, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 import { Breadcrumbs, P } from '../../../AbstractElements';
 import { MuhajirinKidsInput } from '../../../Constant';
 import HeaderCard from '../../Common/Component/HeaderCard';
-import CounterBaikAndBurukMKids from '../../ComponentMuhajirin/CounterBaikAndBurukMKids';
+import CounterBaikBurukScore from '../../ComponentMuhajirin/CounterBaikBurukScore';
 
 const InputMuhajirinKids = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedName, setSelectedName] = useState('');
+  const [kids, setKids] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+
+  useEffect(() => {
+    let isMounted = true; // Track whether the component is mounted
+
+    const fetchKids = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/masjid/kids/');
+        if (isMounted) { // Only update state if the component is mounted
+          console.log('Fetched kids:', response.data); // Log the fetched data
+          setKids(response.data);
+          setLoading(false); // Set loading to false once data is fetched
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error('Error fetching kids data:', error);
+          setLoading(false); // Set loading to false in case of error
+        }
+      }
+    };
+
+    fetchKids();
+
+    return () => {
+      isMounted = false; // Cleanup function to set isMounted to false
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('Kids state useEffect:', kids); // Log the kids state
+  }, [kids]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -29,12 +62,15 @@ const InputMuhajirinKids = () => {
   };
 
   const columnStyle = {
-    border: '1px solid #ddd',
     padding: '5px',
     textAlign: 'center',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  };
+
+  const componentStyle = {
+    marginBottom: '20px', // Adjust as needed
   };
 
   return (
@@ -84,26 +120,30 @@ const InputMuhajirinKids = () => {
                       </Label>
                     </FormGroup>
                   </FormGroup>
-                  
                 </Form>
-                <Row style={{ border: '1px solid #ddd', textAlign: 'center' }}>
+                <Row style={{ borderBottom: '1px solid #ddd', textAlign: 'center' }}>
                   <Col style={columnStyle}>NAMA</Col>
-                  <Col style={columnStyle}>Skor</Col>
-                  <Col style={columnStyle}>Dtg</Col>
-                  <Col style={columnStyle}>Iqo</Col>
-                  <Col style={columnStyle}>Wud</Col>
-                  <Col style={columnStyle}>Shf</Col>
-                  <Col style={columnStyle}>Dzk</Col>
-                  <Col style={columnStyle}>Ttb</Col>
-                  <Col style={columnStyle}>HP</Col>
-                  <Col style={columnStyle}>Ktr</Col>
-                  <Col style={columnStyle}>Akh</Col>
+                  <Col style={columnStyle}>Positive Score | Negative Score</Col>
+                  <Col style={columnStyle}>Badge</Col>
+                  <Col style={columnStyle}>Total Monthly Score</Col>
+                  <Col style={columnStyle}>Last Clicked</Col>
                 </Row>
-                <CounterBaikAndBurukMKids />
-                <CounterBaikAndBurukMKids />
-                <CounterBaikAndBurukMKids />
-
-                <br></br>
+                <Row style={{ textAlign: 'center' }}>
+                  <Col style={columnStyle}>+ DTG</Col>
+                  <Col style={columnStyle}>+ IQO</Col>
+                  <Col style={columnStyle}>+ WUD</Col>
+                  <Col style={columnStyle}>+ SHF</Col>
+                  <Col style={columnStyle}>+ DZK</Col>
+                </Row>
+                {loading ? (
+                  <P>{'Loading...'}</P>
+                ) : (
+                  kids.map((kid) => (
+                    <div style={componentStyle} key={kid.id}>
+                      <CounterBaikBurukScore kidId={kid.id} kidName={kid.nama_panggilan} selectedDate={selectedDate} selectedName={selectedName} />
+                    </div>
+                  ))
+                )}
                 <Button type="submit" color="primary">Submit</Button>
               </CardBody>
             </Card>
@@ -114,4 +154,4 @@ const InputMuhajirinKids = () => {
   );
 };
 
-export default InputMuhajirinKids;  
+export default InputMuhajirinKids;

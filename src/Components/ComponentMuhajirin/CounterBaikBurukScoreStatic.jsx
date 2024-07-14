@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 
-const CounterBaikBurukScore = ({ kidName }) => {
+const CounterBaikBurukScore = () => {
   const [positiveCounts, setPositiveCounts] = useState([0, 0, 0, 0, 0]);
   const [negativeCounts, setNegativeCounts] = useState([0, 0, 0, 0]);
   const [positiveScore, setPositiveScore] = useState(0);
@@ -69,15 +69,10 @@ const CounterBaikBurukScore = ({ kidName }) => {
     marginBottom: '20px', // Adjust as needed
   };
 
-  // Log the kidName prop to ensure it's being passed correctly
-  useEffect(() => {
-    console.log('kidName:', kidName);
-  }, [kidName]);
-
   return (
     <div style={componentStyle}>
       <Row style={{ border: '1px solid #ddd', textAlign: 'center' }}>
-        <Col style={columnStyle}>{kidName}</Col>
+        <Col style={columnStyle}>Name of Student</Col>
         <Col style={columnStyle}>{positiveScore} | {negativeScore}</Col>
         <Col style={columnStyle}>4</Col> {/* Total Monthly Score placeholder */}
         <Col style={columnStyle}>{lastClicked}</Col> {/* Monthly Rank placeholder */}

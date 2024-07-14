@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'reactstrap';
+import axios from 'axios';
 
-const CounterBaikBurukScore = ({ kidName }) => {
+const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) => {
   const [positiveCounts, setPositiveCounts] = useState([0, 0, 0, 0, 0]);
   const [negativeCounts, setNegativeCounts] = useState([0, 0, 0, 0]);
   const [positiveScore, setPositiveScore] = useState(0);
@@ -57,7 +58,6 @@ const CounterBaikBurukScore = ({ kidName }) => {
   };
 
   const columnStyle = {
-    border: '1px solid #ddd',
     padding: '5px',
     textAlign: 'center',
     display: 'flex',
@@ -69,20 +69,39 @@ const CounterBaikBurukScore = ({ kidName }) => {
     marginBottom: '20px', // Adjust as needed
   };
 
-  // Log the kidName prop to ensure it's being passed correctly
-  useEffect(() => {
-    console.log('kidName:', kidName);
-  }, [kidName]);
+  const handleSubmit = async () => {
+    const activityData = {
+      aktivitas_kedatangan: positiveCounts[0],
+      aktivitas_iqomat: positiveCounts[1],
+      aktivitas_wudhu: positiveCounts[2],
+      aktivitas_shof: positiveCounts[3],
+      aktivitas_dzikir: positiveCounts[4],
+      aktivitas_takkhusyusholat: negativeCounts[0],
+      aktivitas_takkhusyukajian: negativeCounts[1],
+      aktivitas_nyampah: negativeCounts[2],
+      aktivitas_akhlakburuk: negativeCounts[3],
+      date_created: selectedDate.toISOString().split('T')[0], // Ensure only date is sent
+      recorder_name: selectedName, // Add recorder's name
+    };
+
+    try {
+      const response = await axios.post(`http://localhost:8000/masjid/kids/${kidId}/activities/`, activityData);
+      console.log('Activity data submitted:', response.data);
+    } catch (error) {
+      console.error('Error submitting activity data:', error);
+    }
+  };
 
   return (
     <div style={componentStyle}>
-      <Row style={{ border: '1px solid #ddd', textAlign: 'center' }}>
+      <Row style={{ borderBottom: '1px solid #ddd', textAlign: 'center' }}>
         <Col style={columnStyle}>{kidName}</Col>
         <Col style={columnStyle}>{positiveScore} | {negativeScore}</Col>
+        <Col style={columnStyle}>{getBadgeText()}</Col> {/* Badge text */}
         <Col style={columnStyle}>4</Col> {/* Total Monthly Score placeholder */}
         <Col style={columnStyle}>{lastClicked}</Col> {/* Monthly Rank placeholder */}
       </Row>
-      <Row style={{ border: '1px solid #ddd', textAlign: 'center' }}>
+      <Row style={{ textAlign: 'center' }}>
         {positiveCounts.map((count, index) => (
           <Col key={index} style={columnStyle}>
             <Button color={getButtonColor(count, 'positive')} onClick={() => handlePositiveButtonClick(index)}>
@@ -91,7 +110,7 @@ const CounterBaikBurukScore = ({ kidName }) => {
           </Col>
         ))}
       </Row>
-      <Row style={{ border: '1px solid #ddd', textAlign: 'center' }}>
+      <Row style={{ textAlign: 'center' }}>
         {negativeCounts.map((count, index) => (
           <Col key={index + 5} style={columnStyle}>
             <Button color={getButtonColor(count, 'negative')} onClick={() => handleNegativeButtonClick(index)}>
@@ -99,8 +118,9 @@ const CounterBaikBurukScore = ({ kidName }) => {
             </Button>
           </Col>
         ))}
-        <Col style={columnStyle}>{getBadgeText()}</Col> {/* Last cell */}
+        <Col style={columnStyle}><Button onClick={handleSubmit}>Submit</Button></Col> {/* Empty last cell */}
       </Row>
+      
     </div>
   );
 };

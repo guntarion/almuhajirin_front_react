@@ -11,6 +11,7 @@ const Notificationbar = () => {
         <SvgIcon iconId='notification' />
         <span className='badge rounded-pill badge-secondary'>4</span>
       </div>
+      
       <div className={`notification-dropdown onhover-show-div ${notificationDropDown ? 'active' : ''}`}>
         <h6 className='f-18 mb-0 dropdown-title'>{Notification}</h6>
         <ul>
