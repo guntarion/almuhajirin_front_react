@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import axios from 'axios';
 
+import bronzeBadge from '../../assets/images/rank/a-bronze.png';
+import silverBadge from '../../assets/images/rank/a-silver.png';
+import goldBadge from '../../assets/images/rank/a-gold.png';
+
 const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) => {
   const [positiveCounts, setPositiveCounts] = useState([0, 0, 0, 0, 0]);
   const [negativeCounts, setNegativeCounts] = useState([0, 0, 0, 0]);
@@ -11,6 +15,42 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
 
   const positiveLabels = ["Kedatangan", "Iqomat", "Wudhu", "Shof", "Dzikir"];
   const negativeLabels = ["Tak Khusyu Sholat", "Tak Khusyu Kajian", "Nyampah", "Akhlak Buruk"];
+
+  const fetchActivityData = async () => {
+    const startDate = selectedDate.toISOString().split('T')[0];
+    const endDate = selectedDate.toISOString().split('T')[0];
+
+    try {
+      const response = await axios.get(`http://localhost:8000/masjid/kids/${kidId}/activities/`, {
+        params: { start_date: startDate, end_date: endDate }
+      });
+      console.log('Fetched activity data:', response.data);
+
+      // Map the activity data to set the counts
+      const activity = response.data[0]; // Assuming only one activity per day per kid
+      if (activity) {
+        setPositiveCounts([
+          activity.aktivitas_kedatangan || 0,
+          activity.aktivitas_iqomat || 0,
+          activity.aktivitas_wudhu || 0,
+          activity.aktivitas_shof || 0,
+          activity.aktivitas_dzikir || 0,
+        ]);
+        setNegativeCounts([
+          activity.aktivitas_takkhusyusholat || 0,
+          activity.aktivitas_takkhusyukajian || 0,
+          activity.aktivitas_nyampah || 0,
+          activity.aktivitas_akhlakburuk || 0,
+        ]);
+      }
+    } catch (error) {
+      console.error('Error fetching activity data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchActivityData();
+  }, [kidId, selectedDate]);
 
   useEffect(() => {
     const posScore = positiveCounts.reduce((sum, count) => sum + count, 0);
@@ -44,16 +84,16 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
     return type === 'negative' ? 'danger' : 'primary';
   };
 
-  const getBadgeText = () => {
+  const getBadgeImage = () => {
     const totalScore = positiveScore + negativeScore;
     if (totalScore < 5) {
-      return '';
+      return null;
     } else if (totalScore < 7) {
-      return 'BRONZE';
+      return bronzeBadge;
     } else if (totalScore <= 11) {
-      return 'SILVER';
+      return silverBadge;
     } else {
-      return 'GOLD';
+      return goldBadge;
     }
   };
 
@@ -87,8 +127,11 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
     try {
       const response = await axios.post(`http://localhost:8000/masjid/kids/${kidId}/activities/`, activityData);
       console.log('Activity data submitted:', response.data);
+      alert('Data submitted successfully'); // Indicate success to user
+      fetchActivityData(); // Re-fetch the activity data after submission
     } catch (error) {
       console.error('Error submitting activity data:', error);
+      alert('Error submitting data'); // Indicate error to user
     }
   };
 
@@ -97,7 +140,9 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
       <Row style={{ borderBottom: '1px solid #ddd', textAlign: 'center' }}>
         <Col style={columnStyle}>{kidName}</Col>
         <Col style={columnStyle}>{positiveScore} | {negativeScore}</Col>
-        <Col style={columnStyle}>{getBadgeText()}</Col> {/* Badge text */}
+        <Col style={columnStyle}>
+          {getBadgeImage() && <img src={getBadgeImage()} alt="Badge" style={{ width: '50px', height: '50px' }} />}
+        </Col> {/* Badge image */}
         <Col style={columnStyle}>4</Col> {/* Total Monthly Score placeholder */}
         <Col style={columnStyle}>{lastClicked}</Col> {/* Monthly Rank placeholder */}
       </Row>
@@ -118,9 +163,8 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
             </Button>
           </Col>
         ))}
-        <Col style={columnStyle}><Button onClick={handleSubmit}>Submit</Button></Col> {/* Empty last cell */}
+        <Col style={columnStyle}><Button color="info" onClick={handleSubmit}>Submit</Button></Col>
       </Row>
-      
     </div>
   );
 };

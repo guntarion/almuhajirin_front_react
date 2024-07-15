@@ -23,14 +23,6 @@ export const MENUITEMS = [
         ],
       },
       {
-        icon: "sample-page",
-        badge2: true,
-        active: false,
-        path: `${process.env.PUBLIC_URL}/pages/contoh-page`,
-        title: "Halaman Contoh",
-        type: "link",
-      },
-      {
         title: 'Masjid Al Muhajirin',
         badge2: true,
         icon: 'support-tickets',
@@ -39,7 +31,13 @@ export const MENUITEMS = [
           {
             active: false,
             path: `${process.env.PUBLIC_URL}/masjid/input-muhajirin-kids`,
-            title: 'Input Muhajirin Kids',
+            title: 'Input Akitivitas M-Kids',
+            type: 'link',
+          },
+          {
+            active: false,
+            path: `${process.env.PUBLIC_URL}/masjid/rekap-muhajirin-kids`,
+            title: 'Rekap Aktivitas M-Kids',
             type: 'link',
           },
         ],

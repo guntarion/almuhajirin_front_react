@@ -58,16 +58,9 @@ const InputMuhajirinKids = () => {
       date: selectedDate,
       name: selectedName,
     });
-    // Add your submission logic here
+    alert('Data submitted successfully!');
   };
 
-  const columnStyle = {
-    padding: '5px',
-    textAlign: 'center',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
 
   const componentStyle = {
     marginBottom: '20px', // Adjust as needed
@@ -121,20 +114,7 @@ const InputMuhajirinKids = () => {
                     </FormGroup>
                   </FormGroup>
                 </Form>
-                <Row style={{ borderBottom: '1px solid #ddd', textAlign: 'center' }}>
-                  <Col style={columnStyle}>NAMA</Col>
-                  <Col style={columnStyle}>Positive Score | Negative Score</Col>
-                  <Col style={columnStyle}>Badge</Col>
-                  <Col style={columnStyle}>Total Monthly Score</Col>
-                  <Col style={columnStyle}>Last Clicked</Col>
-                </Row>
-                <Row style={{ textAlign: 'center' }}>
-                  <Col style={columnStyle}>+ DTG</Col>
-                  <Col style={columnStyle}>+ IQO</Col>
-                  <Col style={columnStyle}>+ WUD</Col>
-                  <Col style={columnStyle}>+ SHF</Col>
-                  <Col style={columnStyle}>+ DZK</Col>
-                </Row>
+  
                 {loading ? (
                   <P>{'Loading...'}</P>
                 ) : (
