@@ -4,7 +4,6 @@ import { AlignCenter } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Image } from '../../../AbstractElements';
 import CustomizerContext from '../../../_helper/Customizer';
-// import NotificationSlider from './NotificationSlider';
 
 const Leftbar = () => {
   const { layoutURL, toggleSidebar } = useContext(CustomizerContext);
@@ -18,7 +17,10 @@ const Leftbar = () => {
         setSize(window.innerWidth);
         if (window.innerWidth <= 1007) {
           toggleSidebar(true);
-          document.querySelector('.page-wrapper').className = 'page-wrapper compact-wrapper';
+          const pageWrapper = document.querySelector('.page-wrapper');
+          if (pageWrapper) {
+            pageWrapper.className = 'page-wrapper compact-wrapper';
+          }
         } else {
           toggleSidebar(false);
         }
@@ -32,39 +34,52 @@ const Leftbar = () => {
 
   const responsive_openCloseSidebar = (toggle) => {
     if (width <= 991) {
-      document.querySelector('.page-header').className = 'page-header';
-      document.querySelector('.sidebar-wrapper').className = 'sidebar-wrapper ';
-      document.querySelector('.bg-overlay').classList.add('active');
+      const pageHeader = document.querySelector('.page-header');
+      const sidebarWrapper = document.querySelector('.sidebar-wrapper');
+      const bgOverlay = document.querySelector('.bg-overlay1'); // Use .bg-overlay1
+
+      if (pageHeader) pageHeader.className = 'page-header';
+      if (sidebarWrapper) sidebarWrapper.className = 'sidebar-wrapper ';
+      if (bgOverlay) {
+        bgOverlay.classList.add('active');
+      } else {
+        console.error('.bg-overlay1 element not found');
+      }
     } else {
+      const pageHeader = document.querySelector('.page-header');
+      const sidebarWrapper = document.querySelector('.sidebar-wrapper');
+      const megaMenuContainer = document.querySelector('.mega-menu-container');
+
       if (toggle) {
         setSidebartoggle(!toggle);
-        document.querySelector('.page-header').className = 'page-header close_icon';
-        document.querySelector('.sidebar-wrapper').className = 'sidebar-wrapper close_icon ';
-        document.querySelector('.mega-menu-container').classList.remove('d-block');
+        if (pageHeader) pageHeader.className = 'page-header close_icon';
+        if (sidebarWrapper) sidebarWrapper.className = 'sidebar-wrapper close_icon ';
+        if (megaMenuContainer) megaMenuContainer.classList.remove('d-block');
       } else {
         setSidebartoggle(!toggle);
-        document.querySelector('.page-header').className = 'page-header';
-        document.querySelector('.sidebar-wrapper').className = 'sidebar-wrapper ';
+        if (pageHeader) pageHeader.className = 'page-header';
+        if (sidebarWrapper) sidebarWrapper.className = 'sidebar-wrapper ';
       }
     }
   };
 
   return (
     <Fragment>
+      <div className='bg-overlay1'></div> {/* Add this line */}
       <Col className='header-logo-wrapper col-auto p-0' id='out_side_click'>
         <div className='logo-wrapper'>
           <Link to={`${process.env.PUBLIC_URL}/home/${layoutURL}`}>
             <Image
               attrImage={{
                 className: 'img-fluid for-light',
-                src: `${require('../../../assets/images/logo/logo.png')}`,
+                src: require('../../../assets/images/logo/logo.png'),
                 alt: '',
               }}
             />
             <Image
               attrImage={{
                 className: 'img-fluid for-dark',
-                src: `${require('../../../assets/images/logo/logo_dark.png')}`,
+                src: require('../../../assets/images/logo/logo_dark.png'),
                 alt: '',
               }}
             />
@@ -74,9 +89,6 @@ const Leftbar = () => {
           <AlignCenter className='status_toggle middle sidebar-toggle' id='sidebar-toggle' />
         </div>
       </Col>
-      {/* <Col xxl='5' xl='6' lg='5' md='4' sm='3' className='left-header p-0'>
-        <NotificationSlider />
-      </Col> */}
     </Fragment>
   );
 };

@@ -23,13 +23,13 @@ const LoginTab = ({ selected }) => {
 
   useEffect(() => {
     localStorage.setItem('profileURL', man);
-    localStorage.setItem('Name', 'Emay Walter');
+    localStorage.setItem('Name', 'Al Muhajirin');
   }, [value, name]);
 
   const loginAuth = async (e) => {
     e.preventDefault();
     setValue(man);
-    setName('Emay Walter');
+    setName('Al Muhajirin');
     if (email !== '' && password !== '') {
       localStorage.setItem('login', JSON.stringify(true));
       history(`${process.env.PUBLIC_URL}/home/${layoutURL}`);
@@ -48,7 +48,7 @@ const LoginTab = ({ selected }) => {
       .then((user) => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         setValue(man);
-        setName('Emay Walter');
+        setName('Al Muhajirin');
         localStorage.setItem('token', Jwt_token);
         window.location.href = `${process.env.PUBLIC_URL}/home/${layoutURL}`;
         return user;

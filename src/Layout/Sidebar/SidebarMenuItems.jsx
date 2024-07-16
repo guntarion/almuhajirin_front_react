@@ -14,16 +14,23 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
   const CurrentPath = window.location.pathname;
 
   const { t } = useTranslation();
+
   const toggletNavActive = (item) => {
+    const pageHeader = document.querySelector('.page-header');
+    const sidebarWrapper = document.querySelector('.sidebar-wrapper');
+    const megaMenuContainer = document.querySelector('.mega-menu-container');
+    const bgOverlay = document.querySelector('.bg-overlay1'); // Use .bg-overlay1
+
     if (window.innerWidth <= 991) {
-      document.querySelector('.page-header').className = 'page-header close_icon';
-      document.querySelector('.sidebar-wrapper').className = 'sidebar-wrapper close_icon ';
-      document.querySelector('.mega-menu-container').classList.remove('d-block');
+      if (pageHeader) pageHeader.className = 'page-header close_icon';
+      if (sidebarWrapper) sidebarWrapper.className = 'sidebar-wrapper close_icon ';
+      if (megaMenuContainer) megaMenuContainer.classList.remove('d-block');
       if (item.type === 'sub') {
-        document.querySelector('.page-header').className = 'page-header';
-        document.querySelector('.sidebar-wrapper').className = 'sidebar-wrapper';
+        if (pageHeader) pageHeader.className = 'page-header';
+        if (sidebarWrapper) sidebarWrapper.className = 'sidebar-wrapper';
       }
     }
+
     if (!item.active) {
       MENUITEMS.map((a) => {
         a.Items.filter((Items) => {
@@ -45,8 +52,15 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
         return a;
       });
     }
+
     item.active = !item.active;
     setMainMenu({ mainmenu: MENUITEMS });
+
+    if (bgOverlay) {
+      bgOverlay.classList.add('active');
+    } else {
+      console.error('.bg-overlay1 element not found');
+    }
   };
 
   return (
@@ -99,7 +113,6 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
                           <a
                             href='javascript'
                             className={`${CurrentPath.includes(childrenItem?.title?.toLowerCase()) ? 'active' : ''}`}
-                            // className={`${childrenItem.active ? 'active' : ''}`}
                             onClick={(event) => {
                               event.preventDefault();
                               toggletNavActive(childrenItem);
@@ -118,7 +131,6 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
                           <Link
                             to={childrenItem.path + '/' + layoutId}
                             className={`${CurrentPath.includes(childrenItem?.title?.toLowerCase()) ? 'active' : ''}`}
-                            // className={`${childrenItem.active ? 'active' : ''}`} bonusui
                             onClick={() => toggletNavActive(childrenItem)}>
                             {t(childrenItem.title)}
                           </Link>
@@ -134,7 +146,6 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
                                   <Link
                                     to={childrenSubItem.path + '/' + layoutId}
                                     className={`${CurrentPath.includes(childrenSubItem?.title?.toLowerCase()) ? 'active' : ''}`}
-                                    // className={`${childrenSubItem.active ? 'active' : ''}`}
                                     onClick={() => toggletNavActive(childrenSubItem)}>
                                     {t(childrenSubItem.title)}
                                   </Link>
