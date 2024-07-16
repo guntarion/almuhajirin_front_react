@@ -86,7 +86,7 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
 
   const getBadgeImage = () => {
     const totalScore = positiveScore + negativeScore;
-    if (totalScore < 5) {
+    if (totalScore < 4) {
       return null;
     } else if (totalScore < 7) {
       return bronzeBadge;
@@ -137,14 +137,14 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
 
   return (
     <div style={componentStyle}>
-      <Row style={{ borderBottom: '1px solid #ddd', textAlign: 'center' }}>
-        <Col style={columnStyle}>{kidName}</Col>
-        <Col style={columnStyle}>{positiveScore} | {negativeScore}</Col>
+      <Row style={{ borderBottom: '2px solid #000', textAlign: 'center', backgroundColor: '#f8f9fa', padding: '10px 0' }}>
+        <Col style={{ ...columnStyle, fontSize: '24px', fontWeight: 'bold' }}>{kidName.toUpperCase()}</Col>
+        <Col style={{ ...columnStyle, fontSize: '20px', fontWeight: 'bold' }}>{positiveScore} | {negativeScore}</Col>
         <Col style={columnStyle}>
           {getBadgeImage() && <img src={getBadgeImage()} alt="Badge" style={{ width: '50px', height: '50px' }} />}
-        </Col> {/* Badge image */}
-        <Col style={columnStyle}>4</Col> {/* Total Monthly Score placeholder */}
-        <Col style={columnStyle}>{lastClicked}</Col> {/* Monthly Rank placeholder */}
+        </Col>
+        <Col style={{ ...columnStyle, fontSize: '20px', fontWeight: 'bold' }}>4</Col> {/* Total Monthly Score placeholder */}
+        <Col style={columnStyle}>{lastClicked}</Col>
       </Row>
       <Row style={{ textAlign: 'center' }}>
         {positiveCounts.map((count, index) => (

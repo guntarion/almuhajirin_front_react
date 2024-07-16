@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardBody, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container, Row, Col, Card, CardBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
@@ -75,7 +75,6 @@ const InputMuhajirinKids = () => {
             <Card>
               <HeaderCard title={MuhajirinKidsInput} span1="Input Kegiatan Harian" span2="Muhajirin Kids" />
               <CardBody>
-                <P>{'Contohnya nih.'}</P>
                 <Form onSubmit={handleSubmit}>
                   <FormGroup style={{ width: '200px' }}>
                     <Label for="datePicker">Select Date</Label>
@@ -90,26 +89,32 @@ const InputMuhajirinKids = () => {
                     <legend>Recorder</legend>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" name="name" value="Adit" onChange={handleNameChange} />{' '}
+                        <Input type="radio" name="name" value="adit" onChange={handleNameChange} />{' '}
                         Adit
                       </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" name="name" value="Fayat" onChange={handleNameChange} />{' '}
+                        <Input type="radio" name="name" value="fayat" onChange={handleNameChange} />{' '}
                         Fayat
                       </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" name="name" value="Rizky" onChange={handleNameChange} />{' '}
+                        <Input type="radio" name="name" value="rizky" onChange={handleNameChange} />{' '}
                         Rizky
                       </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" name="name" value="Marbot" onChange={handleNameChange} />{' '}
-                        Marbot 4
+                        <Input type="radio" name="name" value="marbot" onChange={handleNameChange} />{' '}
+                        Marbot
+                      </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" name="name" value="mkids" onChange={handleNameChange} />{' '}
+                        Koordinator M-Kids
                       </Label>
                     </FormGroup>
                   </FormGroup>
@@ -124,7 +129,6 @@ const InputMuhajirinKids = () => {
                     </div>
                   ))
                 )}
-                <Button type="submit" color="primary">Submit</Button>
               </CardBody>
             </Card>
           </Col>

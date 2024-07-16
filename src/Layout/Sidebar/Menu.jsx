@@ -29,10 +29,16 @@ export const MENUITEMS = [
             title: 'Rekap Akumulatif',
             type: 'link',
           },
+          {
+            active: false,
+            path: `${process.env.PUBLIC_URL}/masjid/info-aktivitas-muhajirin-kids`,
+            title: 'Info Aktivitas',
+            type: 'link',
+          },
         ],
       },
       {
-        title: 'Support Ticket',
+        title: 'Support Muhajirin',
         icon: 'support-tickets',
         type: 'sub',
         children: [
