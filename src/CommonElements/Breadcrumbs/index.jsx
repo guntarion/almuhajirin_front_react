@@ -18,7 +18,7 @@ const Breadcrumbs = (props) => {
             <Col xs='6'>
               <ol className='breadcrumb'>
                 <li className='breadcrumb-item'>
-                  <Link to={`${process.env.PUBLIC_URL}/pages/sample-page/${layoutURL}`}>
+                  <Link to={`${process.env.PUBLIC_URL}/home/${layoutURL}`}>
                     <SvgIcon iconId='stroke-home' />
                   </Link>
                 </li>

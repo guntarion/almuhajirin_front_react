@@ -2,12 +2,13 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardBody } from 'reactstrap';
 import axios from 'axios';
 import { Breadcrumbs } from '../../../AbstractElements';
-import { MuhajirinKidsInput } from '../../../Constant';
 import HeaderCard from '../../Common/Component/HeaderCard';
-import LeaderboardStudent from '../../ComponentMuhajirin/LeaderboardStudent';
-import './RekapMuhajirinKids.css'; // Import the CSS file
 
-const RekapMuhajirinKids = () => {
+import { LeaderboardAkumulatif } from '../../../Constant';
+import LeaderboardStudent from '../../ComponentMuhajirin/LeaderboardStudent';
+import './RekapAkumulatifMuhajirinKids.css'; // Import the CSS file
+
+const RekapAkumulatifMuhajirinKids = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,18 +35,18 @@ const RekapMuhajirinKids = () => {
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle="Muhajirin Kids" parent="Rekap Monitoring Aktivitas" title="Muhajirin Kids" />
+      <Breadcrumbs mainTitle="Rekap Akumulatif" parent="Masjid Al Muharjirin" title="Rekap Akumulatif" />
       <Container fluid={true}>
         <Row>
           <Col sm="12">
             <Card>
-              <HeaderCard title={MuhajirinKidsInput} span1="Input Kegiatan Harian"/>
+              <HeaderCard title={LeaderboardAkumulatif} span1="Muhajirin Kids Hebat"/>
               <CardBody>
                 <Row className="table-header">
                   <Col>RANGKING</Col>
                   <Col>NAMA</Col>
                   <Col>PANGKAT</Col>
-                  <Col>PAPALA</Col>
+                  <Col>PANALA</Col>
                   <Col>HASANAH</Col>
                   <Col>SAYYIAH</Col>
                 </Row>
@@ -65,4 +66,4 @@ const RekapMuhajirinKids = () => {
   );
 };
 
-export default RekapMuhajirinKids;
+export default RekapAkumulatifMuhajirinKids;

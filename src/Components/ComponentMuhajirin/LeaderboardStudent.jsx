@@ -18,14 +18,14 @@ const LeaderboardStudent = ({ student, rank, isOdd }) => {
   const totalScore = totalPositive - totalNegative; // Subtract negative activities from positive activities
 
   const getRank = (score) => {
-    if (score <= 50) return { rank: 'Private', image: privateRank };
-    if (score <= 100) return { rank: 'Sergeant', image: sergeantRank };
-    if (score <= 150) return { rank: 'Captain', image: captainRank };
-    if (score <= 200) return { rank: 'Lieutenant', image: lieutenantRank };
-    if (score <= 250) return { rank: 'Commander', image: commanderRank };
-    if (score <= 300) return { rank: 'Major', image: majorRank };
-    if (score <= 375) return { rank: 'Colonel', image: colonelRank };
-    if (score <= 435) return { rank: 'General', image: generalRank };
+    if (score <= 50) return { rank: 'Prajurit', image: privateRank };
+    if (score <= 100) return { rank: 'Sersan', image: sergeantRank };
+    if (score <= 150) return { rank: 'Kapten', image: captainRank };
+    if (score <= 200) return { rank: 'Letnan', image: lieutenantRank };
+    if (score <= 250) return { rank: 'Komandan', image: commanderRank };
+    if (score <= 300) return { rank: 'Mayor', image: majorRank };
+    if (score <= 375) return { rank: 'Kolonel', image: colonelRank };
+    if (score <= 435) return { rank: 'Jendral', image: generalRank };
     if (score <= 500) return { rank: 'Admiral', image: admiralRank };
     return { rank: 'Marshal', image: marshalRank };
   };

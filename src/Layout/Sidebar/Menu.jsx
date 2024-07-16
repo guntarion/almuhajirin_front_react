@@ -3,25 +3,8 @@ export const MENUITEMS = [
     menutitle: 'General',
     menucontent: 'Dashboards,Widgets',
     Items: [
-      {
-        title: 'Pages',
-        icon: 'sample-page',
-        type: 'sub',
-        children: [
-          {
-            active: false,
-            path: `${process.env.PUBLIC_URL}/pages/sample-page`,
-            title: 'Sample-Page',
-            type: 'link',
-          },
-          {
-            active: false,
-            path: `${process.env.PUBLIC_URL}/pages/sample-page`,
-            title: 'Input Muhajirin Kids',
-            type: 'link',
-          },
-        ],
-      },
+      
+      { path: `${process.env.PUBLIC_URL}/home`, icon: "home", title: "Beranda", type: "link" },
       {
         title: 'Masjid Al Muhajirin',
         badge2: true,
@@ -31,13 +14,19 @@ export const MENUITEMS = [
           {
             active: false,
             path: `${process.env.PUBLIC_URL}/masjid/input-muhajirin-kids`,
-            title: 'Input Akitivitas M-Kids',
+            title: 'Aktivitas M-Kids',
             type: 'link',
           },
           {
             active: false,
-            path: `${process.env.PUBLIC_URL}/masjid/rekap-muhajirin-kids`,
-            title: 'Rekap Aktivitas M-Kids',
+            path: `${process.env.PUBLIC_URL}/masjid/rekap-harian-muhajirin-kids`,
+            title: 'Rekap Harian',
+            type: 'link',
+          },
+          {
+            active: false,
+            path: `${process.env.PUBLIC_URL}/masjid/rekap-akumulatif-muhajirin-kids`,
+            title: 'Rekap Akumulatif',
             type: 'link',
           },
         ],

@@ -10,6 +10,8 @@ export const GeoJsonMaps = 'GeoJsonMaps';
 export const DraggableMarkers = 'DraggableMarkers';
 
 export const MuhajirinKidsInput = 'Inputan Kegiatan Muhajirin Kidz';
+export const LeaderboardHarian = 'Leaderboard Harian';
+export const LeaderboardAkumulatif = 'Leaderboard Akumulatif';
 
 
 export const NewProduct = 'New Product';
