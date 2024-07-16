@@ -6,7 +6,7 @@ import React, { Fragment } from 'react';
 import MoonLight from './MoonLight';
 // import CartHeader from './CartHeader';
 // import BookmarkHeader from './BookmarkHeader';
-import UserHeader from './UserHeader';
+// import UserHeader from './UserHeader';
 import { UL } from '../../../AbstractElements';
 import { Col } from 'reactstrap';
 
@@ -22,7 +22,7 @@ const RightHeader = () => {
           <MoonLight />
           {/* <CartHeader /> */}
           {/* <Notificationbar /> */}
-          <UserHeader />
+          {/* <UserHeader /> */}
         </UL>
         {/* </Col> */}
       </Col>
