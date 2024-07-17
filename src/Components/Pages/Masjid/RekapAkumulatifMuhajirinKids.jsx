@@ -43,7 +43,7 @@ const RekapAkumulatifMuhajirinKids = () => {
               <HeaderCard title={LeaderboardAkumulatif} span1="Muhajirin Kids Hebat"/>
               <CardBody>
                 <Row className="table-header">
-                  <Col>RANGKING</Col>
+                  <Col>RANK</Col>
                   <Col>NAMA</Col>
                   <Col>PANGKAT</Col>
                   <Col>PANALA</Col>

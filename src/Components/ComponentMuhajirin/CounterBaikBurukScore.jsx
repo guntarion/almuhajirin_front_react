@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import bronzeBadge from '../../assets/images/rank/a-bronze.png';
 import silverBadge from '../../assets/images/rank/a-silver.png';
@@ -127,16 +129,23 @@ const CounterBaikBurukScore = ({ kidId, kidName, selectedDate, selectedName }) =
     try {
       const response = await axios.post(`http://localhost:8000/masjid/kids/${kidId}/activities/`, activityData);
       console.log('Activity data submitted:', response.data);
-      alert('Data submitted successfully'); // Indicate success to user
+      toast.success('Data berhasil terkirim!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      }); // Indicate success to user
       fetchActivityData(); // Re-fetch the activity data after submission
     } catch (error) {
       console.error('Error submitting activity data:', error);
-      alert('Error submitting data'); // Indicate error to user
+      toast.error('Error submitting data', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      }); // Indicate error to user
     }
   };
 
   return (
     <div style={componentStyle}>
+      <ToastContainer />
       <Row style={{ borderBottom: '2px solid #000', textAlign: 'center', backgroundColor: '#f8f9fa', padding: '10px 0' }}>
         <Col style={{ ...columnStyle, fontSize: '24px', fontWeight: 'bold' }}>{kidName.toUpperCase()}</Col>
         <Col style={{ ...columnStyle, fontSize: '20px', fontWeight: 'bold' }}>{positiveScore} | {negativeScore}</Col>

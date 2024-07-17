@@ -1352,7 +1352,7 @@ export const MAINTENANCE = 'MAINTENANCE';
 export const BACK_TO_HOME_PAGE = 'BACK TO HOME PAGE';
 export const WE_ARE_COMING_SOON = 'WE ARE COMING SOON';
 
-export const SampleCard = 'Contoh Card';
+export const SampleCard = 'Info';
 export const Videos = 'Videos';
 export const Images = 'Images';
 export const SearchSetting = 'Search setting';

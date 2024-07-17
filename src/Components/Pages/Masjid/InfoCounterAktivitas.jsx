@@ -31,7 +31,7 @@ const rankData = [
 const InfoCounterAktivitas = () => {
   return (
     <Fragment>
-      <Breadcrumbs mainTitle="Info Aktivitas M-Kids" parent="Masjid Al Muhajirin" title="Sample Page" />
+      <Breadcrumbs mainTitle="Info Aktivitas M-Kids" parent="Masjid Al Muhajirin" title="Info Aktivitas" />
       <Container fluid={true}>
         <Row>
           <Col sm="12">
@@ -39,7 +39,7 @@ const InfoCounterAktivitas = () => {
               <HeaderCard title={SampleCard} span1="Info Counter Aktivitas" />
               <CardBody>
                 <h5>Perhitungan Skor Harian</h5>
-                <P>Monitoring harian dilakukan terhadaP dua jenis aktivitas, yang dirangking setiap harinya.</P>
+                <P>Monitoring harian dilakukan terhadap dua jenis aktivitas, yang dirangking setiap harinya.</P>
                 <h6>1. Aktivitas Kebaikan (Hasanah)</h6>
                 <ul>
                 <li>- Hasanah #1 = Kedatangan | Datang lebih awal</li>
@@ -52,8 +52,7 @@ const InfoCounterAktivitas = () => {
                 <h6>2. Aktivitas Keburukan (Sayyiah)</h6>
                 <ul>
                 <li>- Sayyiah #1 = Tak Khusyu Sholat | Banyak bergerak, bercanda</li>
-                <li>- Sayyiah #2 = Tak Khusyu Kajian | Bermain hah3e, ramai</li>
-                <li>- bercanda</li>
+                <li>- Sayyiah #2 = Tak Khusyu Kajian | Bermain gadget, ramai bercanda</li>
                 <li>- Sayyiah #3 = Nyampah | Termasuk makan dan minum dalam masjid</li>
                 <li>- Sayyiah #4 = Akhlak Buruk | Ramai di masjid, bertengkar, dsb.</li>
                 </ul>
